@@ -27,7 +27,21 @@
 #include <unistd.h>
 
 int usage(char *self) {
-    fprintf(stdout, "%s, This is HELP!!\n", self);
+    fprintf(stdout, "\
+%s\n\
+Usage:\n\
+    %s <options> number\n\
+Options:\n\
+    -h      show this help.\n\
+    -q      quiet mode.\n\
+    -g      generate prime number\n\
+    -n      find prime number\n\
+    -s char use 'char' as separator. (default is newline).\n\
+Return:\n\
+    0       if number is prime.\n\
+    1       if number is not a prime.\n\
+",
+self, self);
     return -1;
 }
 
@@ -85,7 +99,7 @@ int main(int argc, char *argv[]) {
             case 's':
                 sep = optarg; break;
             case '?':
-                return 1;
+                return -1;
             default:
                 abort();
         }
