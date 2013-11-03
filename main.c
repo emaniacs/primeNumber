@@ -36,7 +36,7 @@ Options:\n\
     -q           quiet mode.\n\
     -g <number>  generate prime number\n\
     -n <number>  find prime number\n\
-    -s           char use 'char' as separator. (default is newline).\n\
+    -s <char>    use 'char' as separator. (default is newline).\n\
 Return:\n\
     0       if number is prime.\n\
     1       if number is not a prime.\n\
@@ -93,28 +93,25 @@ int main(int argc, char *argv[]) {
         if (*garbage != 0)
             number = 0;
     }
-
-    if (number > 1) {
-        // cari bilangan prima yang ke number
-        if (nth) {
-            fprintf(stdout, "%d\n", find_prime(number));
-        }
-        else if(generate) {
-            generate_prime (number, sep);
+    
+    if (nth && number >= 1) {
+        fprintf(stdout, "%d\n", find_prime(number));
+    }
+    else if (generate && number >= 1) {
+        generate_prime(number, sep);
+    }
+    else if (number > 1) {
+        if (its_prime(number) && !quiet){
+            fprintf(stdout, "true\n");
         }
         else {
-            if (its_prime(number) && !quiet){
-                fprintf(stdout, "true\n");
-            }
-            else {
-                ret = 1;
-                if (! quiet)
-                    fprintf(stdout, "false\n");
-            }
+            ret = 1;
+            if (! quiet)
+                fprintf(stdout, "false\n");
         }
     }
     else {
-        fprintf(stdout, "Please enter valid integer\n");
+        fprintf(stdout, "Please enter valid integer, above than 1\n");
         return -1;
     }
 
