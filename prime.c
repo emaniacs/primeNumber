@@ -149,9 +149,8 @@ int main(int argc, char *argv[]) {
             fprintf(stdout, "\n");
         }
         else {
-            if (its_prime(number)) {
-                if (!quiet)
-                    fprintf(stdout, "true\n");
+            if (its_prime(number) && !quiet){
+                fprintf(stdout, "true\n");
             }
             else {
                 ret = 1;
