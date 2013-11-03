@@ -25,7 +25,7 @@
 #include <stdlib.h>
 #include <stdlib.h>
 #include <unistd.h>
-
+#include "prime.h"
 int usage(char *self) {
     fprintf(stdout, "\
 %s\n\
@@ -46,34 +46,6 @@ self, self);
     return -1;
 }
 
-int its_prime (int number) {
-    // angka 2 pasti bilangan prima
-    if (number == 2)
-        return 1;
-
-    // bilangan genap bukan bilangan prima
-    if ((number & 1) == 0)
-        return 0;
-
-    // set nilai default
-    int start = 3;
-    int to = number / 2;
-
-    // looping sampai setengah bilangan, dengan step plus 2
-    // misalkan number=27, berarti to=13
-    // start akan selalu bilangan ganjil karena step plus 2
-    // jika number(27) habis dibagi start(+2) maka bilangan tersebut bukan bilangan prima
-    for (; start < to; start+=2) {
-        if (number % start == 0) {
-            return 0;
-        }
-    }
-    
-    // jika sampai sini berarti number adalah bilangan prima
-    return 1;
-}
-
-
 int main(int argc, char *argv[]) {
     // nilai return.
     int ret = 0;
@@ -83,7 +55,6 @@ int main(int argc, char *argv[]) {
     int quiet = 0;
     int generate = 0;
     int nth = 0;
-    int help = 0;
     
     // start parsing parameters
     int c;
@@ -126,27 +97,10 @@ int main(int argc, char *argv[]) {
     if (number > 1) {
         // cari bilangan prima yang ke number
         if (nth) {
-            int x = 0, y = 1;
-            while(x<number) {
-                y++;
-                if (its_prime(y))
-                    x++;
-            }
-            if (! quiet) {
-                fprintf(stdout, "%d\n", y);
-            }
+            fprintf(stdout, "%d\n", find_prime(number));
         }
         else if(generate) {
-            int x = 0, y = 2;
-            for (; x<number; y++) {
-                if (its_prime(y)) {
-                    fprintf(stdout, "%d", y);
-                    x++;
-                    if (x<number)
-                        fprintf(stdout, "%s", sep);
-                }
-            }
-            fprintf(stdout, "\n");
+            generate_prime (number, sep);
         }
         else {
             if (its_prime(number) && !quiet){
