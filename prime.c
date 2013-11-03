@@ -32,14 +32,15 @@ int usage(char *self) {
 Usage:\n\
     %s <options> number\n\
 Options:\n\
-    -h      show this help.\n\
-    -q      quiet mode.\n\
-    -g      generate prime number\n\
-    -n      find prime number\n\
-    -s char use 'char' as separator. (default is newline).\n\
+    -h           show this help.\n\
+    -q           quiet mode.\n\
+    -g <number>  generate prime number\n\
+    -n <number>  find prime number\n\
+    -s           char use 'char' as separator. (default is newline).\n\
 Return:\n\
     0       if number is prime.\n\
     1       if number is not a prime.\n\
+    -1      error\n\
 ",
 self, self);
     return -1;
